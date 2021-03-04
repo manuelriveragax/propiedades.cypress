@@ -1,33 +1,63 @@
 /// <reference types="Cypress" />
 
 describe("Dropdown menu content and url navigation", () => {
-  const username = Cypress.env("username");
-  const password = Cypress.env("password");
-
   it("Logs in", () => {
-    cy.clearCookies();
-    cy.visit("/");
-    cy.get("#loginLink").click();
-    cy.url().should("include", "/Account/Login");
-
-    // Input username and password to login
-    cy.get("#Email").type(username);
-    cy.get("#Password").type(password);
-    cy.get("input[value='Iniciar sesión']").click();
-
-    // Greeting and username should be visible
-    cy.contains("Hola").should("contain.text", username);
-
-    // Should redirect to home after log in
-    cy.url().should("include", "/");
+    cy.loginUi();
   });
 
-  it("Administracion content and navigation", () => {
+  // it("Administracion -> Configuracion", () => {
+  //   cy.get(":nth-child(2) > .dropdown-toggle")
+  //     .should("contain.text", "Administración")
+  //     .click();
+  //   cy.get(".open > .dropdown-menu > :nth-child(1) > a")
+  //     .should("contain.text", "Configuración")
+  //     .click();
+  //   cy.url().should("include", "/Configuracions/Index");
+  //   cy.contains("+ Configuraciones").should("be.visible");
+  // });
+
+  // it("Administracion -> Sucursales", () => {
+  //   cy.get(":nth-child(2) > .dropdown-toggle")
+  //     .should("contain.text", "Administración")
+  //     .click();
+  //   cy.contains("Sucursales").should("be.visible").click();
+  //   cy.url().should("include", "/Sucursales/Index");
+  //   cy.contains("+ Sucursales").should("be.visible");
+  // });
+
+  // it("Administracion -> Regiones", () => {
+  //   cy.get(":nth-child(2) > .dropdown-toggle")
+  //     .should("contain.text", "Administración")
+  //     .click();
+  //   cy.contains("Regiones").should("be.visible").click();
+  //   cy.url().should("include", "/Regiones/Index");
+  //   cy.contains("+ Regiones").should("be.visible");
+  // });
+
+  // it("Administracion -> Zonas", () => {
+  //   cy.get(":nth-child(2) > .dropdown-toggle")
+  //     .should("contain.text", "Administración")
+  //     .click();
+  //   cy.contains("Zonas").should("be.visible").click();
+  //   cy.url().should("include", "/Zonas/Index");
+  //   cy.contains("+ Zonas").should("be.visible");
+  // });
+
+  it("Administracion -> Roles", () => {
     cy.get(":nth-child(2) > .dropdown-toggle")
       .should("contain.text", "Administración")
       .click();
-    cy.get(".open > .dropdown-menu > :nth-child(1) > a")
-      .should("contain.text", "Configuración")
+    cy.contains("Roles").should("be.visible").click();
+    cy.url().should("include", "/AspNetRoles/Index");
+    cy.contains("Agregar").should("be.visible");
+  });
+
+  it("Administracion -> Usuarios x Rol", () => {
+    cy.get(":nth-child(2) > .dropdown-toggle")
+      .should("contain.text", "Administración")
       .click();
+    cy.contains("Usuarios x Rol").should("be.visible").click();
+    cy.url().should("include", "/AspNetUserRoles/Index");
+    cy.contains("Agregar").should("be.visible");
   });
 });

@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe("Login and Logout widget testing", () => {
+describe("Login widget testing", () => {
   const username = Cypress.env("username");
   const password = Cypress.env("password");
 
@@ -20,7 +20,9 @@ describe("Login and Logout widget testing", () => {
     // Should redirect to home after log in
     cy.url().should("include", "/");
   });
+});
 
+describe("Logout widget testing", () => {
   it("should logout successfulyl", () => {
     cy.contains("Cerrar").click();
 
